@@ -1,5 +1,5 @@
-import {PrismaClient} from '@prisma/client'
-import express from 'express';
+import { PrismaClient } from '@prisma/client'
+import express from 'express'
 const prisma = new PrismaClient()
 import bodyParser from 'body-parser';
 
@@ -14,17 +14,16 @@ app.get('/todos', async (req, res) => {
 
 app.post('/todos', async (req, res) => {
     const post = await prisma.todo.create({
-        data: {...req.body}
+        data: { ...req.body }
     })
     res.json(post)
 })
 
 app.put('/todos/:id', async (req, res) => {
-    const {id} = req.params
-    const {title} = req.body;
+    const { id } = req.params
     const post = await prisma.todo.update({
-        where: {id: Number(id)},
-        data: {title}
+        where: { id: Number(id) },
+        data: { ...req.body }
     })
     res.json(post)
 })
